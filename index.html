@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>دیوار | سایت ثبت نیازمندی ها</title>
+    <link rel="icon"
+        href="https://s.cafebazaar.ir/images/icons/ir.divar-b623fc9b-b66a-44c5-88a8-8e4ed2924637_512x512.png?x-img=v1/resize,h_256,w_256,lossless_false/optimize">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quasar@2/dist/quasar.rtl.prod.css" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body,
+        #app {
+            min-height: 100%;
+            width: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: Vazirmatn, sans-serif;
+            color: #303030;
+            background: #fff;
+        }
+
+        button,
+        input,
+        select,
+        textarea,
+        .q-field {
+            font-family: inherit;
+        }
+
+        .q-field__native,
+        .q-field__input {
+            text-align: right;
+        }
+
+        .top {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav {
+            direction: rtl;
+            text-align: right;
+            max-width: 1250px;
+            margin: auto;
+            padding: 12px 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav>* {
+            min-width: 0;
+        }
+
+        .city-select,
+        .search {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .city-select .q-field__control,
+        .search .q-field__control {
+            direction: rtl;
+        }
+
+        .city-select .q-field__native,
+        .city-select .q-field__input,
+        .search .q-field__native,
+        .search .q-field__input {
+            text-align: right;
+            direction: rtl;
+        }
+
+        .search .q-field__prepend {
+            padding-left: 8px;
+            padding-right: 0;
+        }
+
+        .search .q-field__append {
+            padding-right: 8px;
+            padding-left: 0;
+        }
+
+        .logo {
+            color: #a62626;
+            font-size: 25px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .city-select {
+            width: 150px;
+            flex-shrink: 0;
+        }
+
+        .search {
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .post-btn {
+            flex-shrink: 0;
+        }
+
+        .layout {
+            direction: rtl;
+            max-width: 1250px;
+            margin: 24px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 28px;
+        }
+
+        .layout>aside {
+            flex: 0 0 220px;
+            order: 0;
+        }
+
+        .layout>section {
+            flex: 1 1 auto;
+            min-width: 0;
+            order: 1;
+        }
+
+        aside {
+            border-left: 1px solid #eee;
+            padding-left: 20px;
+            min-width: 0;
+        }
+
+        .side-title {
+            font-weight: 600;
+            margin: 0 0 14px;
+        }
+
+        .categories {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .category {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 9px;
+            padding: 10px 9px;
+            border-radius: 6px;
+            color: #555;
+            cursor: pointer;
+            min-width: 0;
+        }
+
+        .category:hover,
+        .category.active {
+            background: #f7f7f7;
+            color: #a62626;
+        }
+
+        .category .material-icons {
+            font-size: 20px;
+        }
+
+        .filters {
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid #eee;
+        }
+
+        .filters .q-field {
+            margin-top: 10px;
+        }
+
+        .heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .heading h2 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .count {
+            color: #888;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            gap: 10px;
+            padding: 11px;
+            border: 1px solid #eee;
+            border-radius: 7px;
+            min-width: 0;
+            cursor: pointer;
+            transition: border-color .15s;
+        }
+
+        .card:hover {
+            border-color: #bbb;
+        }
+
+        .photo {
+            width: 105px;
+            height: 105px;
+            flex: 0 0 105px;
+            border-radius: 5px;
+            background: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .photo img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo .material-icons {
+            font-size: 34px;
+            color: #bbb;
+        }
+
+        .info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .name {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.9;
+            overflow-wrap: anywhere;
+        }
+
+        .price {
+            margin-top: auto;
+            padding-top: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .meta {
+            font-size: 11px;
+            color: #999;
+            margin-top: 6px;
+        }
+
+        .heart {
+            color: #888;
+            align-self: flex-start;
+            flex: 0 0 auto;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 60px 10px;
+            color: #888;
+        }
+
+        .dialog-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .dialog-actions .q-btn {
+            min-width: 100px;
+        }
+
+        @media (min-width: 1200px) {
+            .cards {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                gap: 18px;
+            }
+
+            .layout>aside {
+                flex-basis: 190px;
+            }
+
+            aside {
+                padding-left: 14px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .nav {
+                direction: rtl;
+                padding: 10px 12px;
+                gap: 9px;
+                flex-wrap: wrap;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .city-select {
+                width: 135px;
+            }
+
+            .search {
+                order: 3;
+                flex: 1 0 100%;
+            }
+
+            .post-btn {
+                margin-right: auto;
+            }
+
+            .layout {
+                display: block;
+                margin: 16px auto;
+                padding: 0 12px;
+            }
+
+            aside {
+                border: 0;
+                padding: 0;
+                margin-bottom: 22px;
+            }
+
+            .categories {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 7px;
+            }
+
+            .category {
+                flex: 1 1 calc(50% - 7px);
+                max-width: calc(50% - 3px);
+                min-width: 0;
+                border: 1px solid #eee;
+                padding: 9px 10px;
+                font-size: 12px;
+            }
+
+            .category .material-icons {
+                flex-shrink: 0;
+            }
+
+            .category span:last-child {
+                overflow-wrap: anywhere;
+            }
+
+            .filters {
+                margin-top: 14px;
+                padding-top: 14px;
+            }
+
+            .filters .side-title {
+                margin-bottom: 8px;
+            }
+
+            .filters .q-field {
+                margin-top: 0;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 9px;
+            }
+
+            .card {
+                padding: 10px;
+                min-height: 118px;
+            }
+
+            .photo {
+                width: 100px;
+                height: 100px;
+                flex-basis: 100px;
+            }
+
+            .heading h2 {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .city-select {
+                width: 118px;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .category {
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+
+            .photo {
+                width: 84px;
+                height: 84px;
+                flex-basis: 84px;
+            }
+
+            .card {
+                gap: 8px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header class="top">
+            <div class="nav">
+                <div class="logo">دیوار</div>
+
+                <q-select class="city-select" v-model="city" :options="cities" dense outlined options-dense emit-value
+                    map-options label="انتخاب شهر" dropdown-icon="expand_more" behavior="menu"></q-select>
+
+                <q-input class="search" v-model="search" dense outlined clearable placeholder="جستجو در همه آگهی‌ها">
+                    <template v-slot:prepend><q-icon name="search"></q-icon></template>
+                </q-input>
+
+                <q-btn class="post-btn" unelevated no-caps color="negative" label="ثبت آگهی"
+                    @click="showForm = true"></q-btn>
+            </div>
+        </header>
+
+        <main class="layout">
+            <aside>
+                <div class="side-title">دسته‌بندی‌ها</div>
+                <div class="categories">
+                    <div v-for="c in categories" :key="c.name" class="category" :class="{ active: category === c.name }"
+                        @click="category = c.name">
+                        <span class="material-icons">{{ c.icon }}</span>
+                        <span>{{ c.name }}</span>
+                    </div>
+                </div>
+
+                <div class="filters">
+                    <div class="side-title">حداکثر قیمت (تومان)</div>
+                    <q-input v-model="maxPrice" type="number" dense outlined clearable
+                        placeholder="مثلاً ۵۰۰۰۰۰۰۰"></q-input>
+                </div>
+            </aside>
+
+            <section>
+                <div class="heading">
+                    <h2>{{ category === 'همه' ? 'همه آگهی‌ها' : category }}</h2>
+                    <span class="count">{{ filtered.length.toLocaleString('fa-IR') }} آگهی</span>
+                </div>
+
+                <div class="cards">
+                    <article class="card" v-for="ad in filtered" :key="ad.id" @click="selected = ad">
+                        <div class="photo">
+                            <img v-if="ad.image && !failedImages.includes(ad.id)" :src="ad.image" :alt="ad.title"
+                                @error="markImageFailed(ad.id)">
+                            <span v-else class="material-icons">image</span>
+                        </div>
+
+                        <div class="info">
+                            <div class="name">{{ ad.title }}</div>
+                            <div class="price">{{ ad.price.toLocaleString('fa-IR') }} تومان</div>
+                            <div class="meta">{{ ad.location }} · {{ ad.time }}</div>
+                        </div>
+
+                        <q-btn flat round dense class="heart"
+                            :icon="favorites.includes(ad.id) ? 'favorite' : 'favorite_border'"
+                            :color="favorites.includes(ad.id) ? 'negative' : 'grey-7'"
+                            @click.stop="toggleFavorite(ad.id)"></q-btn>
+                    </article>
+                </div>
+
+                <div v-if="!filtered.length" class="empty">
+                    <q-icon name="search_off" size="42px"></q-icon>
+                    <p>آگهی‌ای پیدا نشد.</p>
+                </div>
+            </section>
+        </main>
+
+        <q-dialog v-model="showForm" persistent>
+            <q-card style="width: 430px; max-width: 95vw; direction: rtl; font-family: Vazirmatn,sans-serif">
+                <q-card-section>
+                    <div class="text-h6">ثبت آگهی جدید</div>
+                </q-card-section>
+                <q-card-section class="q-gutter-y-md">
+                    <q-input v-model.trim="newAd.title" outlined dense label="عنوان آگهی"></q-input>
+                    <q-input v-model="newAd.description" type="textarea" outlined label="توضیحات آگهی"
+                        placeholder="جزئیات کامل آگهی را بنویسید..." autogrow
+                        :input-style="{ minHeight: '180px', lineHeight: '1.9' }" maxlength="10000" counter></q-input>
+                    <q-input v-model.number="newAd.price" type="number" min="1" outlined dense
+                        label="قیمت (تومان)"></q-input>
+                    <q-select v-model="newAd.category" :options="categories.slice(1).map(c => c.name)" outlined dense
+                        label="دسته‌بندی"></q-select>
+                    <q-select v-model="newAd.location" :options="cities" outlined dense label="شهر آگهی"></q-select>
+                    <div v-if="formError" class="text-negative text-caption">{{ formError }}</div>
+                </q-card-section>
+                <q-card-actions align="left" class="q-pa-md">
+                    <q-btn unelevated color="negative" no-caps label="ثبت آگهی" @click="addAd"></q-btn>
+                    <q-btn flat no-caps label="انصراف" v-close-popup></q-btn>
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
+
+        <q-dialog v-model="detailsOpen">
+            <q-card v-if="selected"
+                style="width: 430px; max-width: 95vw; direction: rtl; font-family: Vazirmatn,sans-serif">
+                <q-card-section>
+                    <div class="text-h6">{{ selected.title }}</div>
+                    <div class="text-subtitle1 q-mt-sm">{{ selected.price.toLocaleString('fa-IR') }} تومان</div>
+                    <div class="text-caption text-grey">{{ selected.location }} · {{ selected.time }}</div>
+                </q-card-section>
+                <q-card-section style="white-space: pre-wrap; overflow-wrap: anywhere; line-height: 2">{{
+                    selected.description || 'برای این آگهی توضیحاتی ثبت نشده است.' }}</q-card-section>
+                <q-card-actions align="left">
+                    <q-btn flat no-caps label="بستن" v-close-popup></q-btn>
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quasar@2/dist/quasar.umd.prod.js"></script>
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    city: 'تهران',
+                    cities: ['همه شهرها', 'تهران', 'کرج', 'اصفهان', 'مشهد', 'شیراز', 'تبریز', 'قم', 'رشت'],
+                    search: '',
+                    category: 'همه',
+                    maxPrice: '',
+                    showForm: false,
+                    selected: null,
+                    formError: '',
+                    favorites: [],
+                    failedImages: [],
+                    categories: [
+                        { name: 'همه', icon: 'apps' },
+                        { name: 'املاک', icon: 'home' },
+                        { name: 'وسایل نقلیه', icon: 'directions_car' },
+                        { name: 'کالای دیجیتال', icon: 'devices' },
+                        { name: 'خانه و آشپزخانه', icon: 'chair' },
+                        { name: 'استخدام', icon: 'work' }
+                    ],
+                    newAd: { title: '', description: '', price: null, category: 'کالای دیجیتال', location: 'تهران' },
+                    ads: [
+                        { id: 1, title: 'آپارتمان ۸۰ متری، خوش‌نقشه', price: 4500000000, category: 'املاک', location: 'تهران', time: 'لحظاتی پیش', image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=300&auto=format' },
+                        { id: 2, title: 'گوشی موبایل، تمیز و سالم', price: 18500000, category: 'کالای دیجیتال', location: 'تهران', time: '۱ ساعت پیش', image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&auto=format' },
+                        { id: 3, title: 'خودرو کم‌کارکرد و سالم', price: 850000000, category: 'وسایل نقلیه', location: 'تهران', time: '۲ ساعت پیش', image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=300&auto=format' },
+                        { id: 4, title: 'میز و صندلی مناسب خانه', price: 6500000, category: 'خانه و آشپزخانه', location: 'کرج', time: '۳ ساعت پیش', image: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=300&auto=format' },
+                        { id: 5, title: 'لپ‌تاپ مناسب کار و برنامه‌نویسی', price: 32000000, category: 'کالای دیجیتال', location: 'تهران', time: 'امروز', image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&auto=format' },
+                        { id: 6, title: 'استخدام نیروی پشتیبانی', price: 18000000, category: 'استخدام', location: 'تهران', time: 'امروز', image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=300&auto=format' }
+                    ]
+                };
+            },
+            computed: {
+                filtered() {
+                    const q = (this.search || '').trim().toLowerCase();
+                    return this.ads.filter(ad =>
+                        (this.city === 'همه شهرها' || ad.location === this.city) &&
+                        (this.category === 'همه' || ad.category === this.category) &&
+                        ad.title.toLowerCase().includes(q) &&
+                        (this.maxPrice === '' || this.maxPrice === null || ad.price <= Number(this.maxPrice))
+                    );
+                },
+                detailsOpen: {
+                    get() { return this.selected !== null; },
+                    set(value) { if (!value) this.selected = null; }
+                }
+            },
+            methods: {
+                markImageFailed(id) {
+                    if (!this.failedImages.includes(id)) this.failedImages.push(id);
+                },
+                toggleFavorite(id) {
+                    this.favorites = this.favorites.includes(id)
+                        ? this.favorites.filter(x => x !== id)
+                        : [...this.favorites, id];
+                },
+                addAd() {
+                    this.formError = '';
+                    if (!this.newAd.title || !this.newAd.price || this.newAd.price <= 0) {
+                        this.formError = 'عنوان و قیمت معتبر را وارد کنید.';
+                        return;
+                    }
+                    this.ads.unshift({
+                        id: Date.now(),
+                        title: this.newAd.title,
+                        description: (this.newAd.description || '').trim(),
+                        price: Number(this.newAd.price),
+                        category: this.newAd.category,
+                        location: this.newAd.location,
+                        time: 'همین الان',
+                        image: ''
+                    });
+                    this.city = 'همه شهرها';
+                    this.category = 'همه';
+                    this.search = '';
+                    this.newAd = { title: '', description: '', price: null, category: 'کالای دیجیتال', location: 'تهران' };
+                    this.showForm = false;
+                }
+            }
+        }).use(Quasar, { config: { brand: { negative: '#a62626' } } }).mount('#app');
+    </script>
+</body>
+
+</html>
